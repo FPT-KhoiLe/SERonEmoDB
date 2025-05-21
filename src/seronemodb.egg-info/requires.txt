@@ -1,0 +1,11 @@
+numpy
+pandas
+torch
+torchaudio
+scikit-learn
+
+[develop]
+black
+isort
+pytest
+ipykernel

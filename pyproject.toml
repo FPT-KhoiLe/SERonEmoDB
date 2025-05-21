@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69", "wheel", "pytest"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seronemodb"
+version = "0.1.0"
+description = "Speech Emotion Recognition on EmoDB dataset"
+
+#authors = [
+#    { name = "Team 5", email = "team5@example.com" }
+#]
+
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "torch",
+    "torchaudio",
+    "scikit-learn",
+]
+
+[project.optional-dependencies]
+develop = ["black", "isort", "pytest", "ipykernel"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"seronemodb" = ["py.typed"]
