@@ -4,6 +4,8 @@ Building a deep learning system for identifying and classifying emotions from sp
 ## Guide to setup
 Run `pip install -r requirements.txt` để cài đặt toàn bộ requirements cần thiết trong thư viện. Notes: đây là phiên bản cổ đại nhất. Có lỗi gì feedback với Khôi Lê qua zalo `0981275337`
 
+Lựa chọn thay thế: Run `conda env create -f environment.yml` để tạo môi trường conda.
+
 Run `pip install -e .` trong thư mục repo gốc để chạy file `pyproject.toml`  
 
 Run `pytest` để chạy test toàn bộ dự án.
