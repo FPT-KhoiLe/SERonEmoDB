@@ -8,7 +8,6 @@ pytest~=8.3.5
 lightning~=2.5.1.post0
 torchmetrics~=1.7.1
 kagglehub~=0.3.12
-seronemodb~=0.1.0
 pytorch-lightning~=2.5.1.post0
 setuptools~=78.1.1
 librosa~=0.11.0
