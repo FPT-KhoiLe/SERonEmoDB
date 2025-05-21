@@ -19,38 +19,38 @@ EMOTION_MAP = {
     'N': 6,  # neutral
 }
 
-def download_data(dataset="piyushagni5/berlin-database-of-emotional-speech-emodb",
-                  root_dir="datas",
-                  force_download=False):
-    """
-    Tải và giải nén EMO-DB từ KaggleHub về `root_dir/<dataset_name>/wav/`.
-    Nếu đã tải sẵn (và `force_download=False`), hàm sẽ bỏ qua.
-    Trả về đường dẫn đến thư mục chứa .wav.
-    """
-    dataset_name = dataset.split("/")[-1]
-    target_dir = os.path.join(root_dir, dataset_name, "wav")
-    archive_path = os.path.join(root_dir, f"{dataset_name}.zip")
-
-    # Nếu đã có và không ép tải lại, exit sớm
-    if os.path.isdir(target_dir) and not force_download:
-        print(f"[download_data] Data đã tồn tại tại {target_dir}, bỏ qua download.")
-        return target_dir
-
-    os.makedirs(root_dir, exist_ok=True)
-    print(f"[download_data] Đang tải dataset `{dataset}` về {archive_path} ...")
-    archive_path = kagglehub.dataset_download(dataset, path=root_dir)
-    print(f"[download_data] Giải nén {archive_path} ...")
-
-    with zipfile.ZipFile(archive_path, "r") as z:
-        z.extractall(os.path.join(root_dir, dataset_name))
-    # Nếu file zip còn thừa, bạn có thể xóa:
-    # os.remove(archive_path)
-
-    # Giả sử thư mục giải nén có cấu trúc .../wav/*.wav
-    if not os.path.isdir(target_dir):
-        raise RuntimeError(f"Không tìm thấy thư mục WAV tại {target_dir} sau khi giải nén!")
-    print(f"[download_data] Hoàn thành. Dữ liệu nằm ở {target_dir}")
-    return target_dir
+# def download_data(dataset="piyushagni5/berlin-database-of-emotional-speech-emodb",
+#                   root_dir="datas",
+#                   force_download=False):
+#     """
+#     Tải và giải nén EMO-DB từ KaggleHub về `root_dir/<dataset_name>/wav/`.
+#     Nếu đã tải sẵn (và `force_download=False`), hàm sẽ bỏ qua.
+#     Trả về đường dẫn đến thư mục chứa .wav.
+#     """
+#     dataset_name = dataset.split("/")[-1]
+#     target_dir = os.path.join(root_dir, dataset_name, "wav")
+#     archive_path = os.path.join(root_dir, f"{dataset_name}.zip")
+#
+#     # Nếu đã có và không ép tải lại, exit sớm
+#     if os.path.isdir(target_dir) and not force_download:
+#         print(f"[download_data] Data đã tồn tại tại {target_dir}, bỏ qua download.")
+#         return target_dir
+#
+#     os.makedirs(root_dir, exist_ok=True)
+#     print(f"[download_data] Đang tải dataset `{dataset}` về {archive_path} ...")
+#     archive_path = kagglehub.dataset_download(dataset, path=root_dir)
+#     print(f"[download_data] Giải nén {archive_path} ...")
+#
+#     with zipfile.ZipFile(archive_path, "r") as z:
+#         z.extractall(os.path.join(root_dir, dataset_name))
+#     # Nếu file zip còn thừa, bạn có thể xóa:
+#     # os.remove(archive_path)
+#
+#     # Giả sử thư mục giải nén có cấu trúc .../wav/*.wav
+#     if not os.path.isdir(target_dir):
+#         raise RuntimeError(f"Không tìm thấy thư mục WAV tại {target_dir} sau khi giải nén!")
+#     print(f"[download_data] Hoàn thành. Dữ liệu nằm ở {target_dir}")
+#     return target_dir
 
 class EmoDBDataset(BaseLightningDataset):
     """
@@ -92,7 +92,7 @@ class EmoDataModule(BaseLightningDataModule):
         self.split_ratio = split_ratio
 
     def setup(self, stage=None):
-        download_data()
+        # download_data()
         # List and sort files for reproducibility
         all_files = sorted([f for f in os.listdir(self.data_dir) if f.endswith('.wav')])
         n = len(all_files)
