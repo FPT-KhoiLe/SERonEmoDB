@@ -1,0 +1,3 @@
+input_channels: 40
+lr: 0.001
+n_classes: 7

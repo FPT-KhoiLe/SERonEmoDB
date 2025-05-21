@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: seronemodb
+Version: 0.1.0
+Summary: Speech Emotion Recognition on EmoDB dataset
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: torch
+Requires-Dist: torchaudio
+Requires-Dist: scikit-learn
+Provides-Extra: develop
+Requires-Dist: black; extra == "develop"
+Requires-Dist: isort; extra == "develop"
+Requires-Dist: pytest; extra == "develop"
+Requires-Dist: ipykernel; extra == "develop"
+Dynamic: license-file
