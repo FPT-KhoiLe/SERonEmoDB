@@ -1,4 +1,7 @@
 # SERonEmoDB
+## Notes: 
+Đọc file SSH_Key_Create_Guide.md trước để biết cách setup SSH để sử dụng github.
+
 Building a deep learning system for identifying and classifying emotions from speech data.
 
 ## Guide to setup
