@@ -110,3 +110,35 @@ git config --global user.email "youremail@example.com"
 **Hoàn thành!**
 
 Giờ bạn có thể dùng Git qua SSH trên Windows mà không cần nhập mật khẩu mỗi lần tương tác với remote repository.
+
+# Hướng dẫn các lệnh cơ bản trong quá trình làm việc 
+
+```bash
+git clone git@github.com:FPT-KhoiLe/SERonEmoDB.git
+```
+Chạy lệnh này đầu tiên để clone toàn bộ repo về máy (trong thư mục của repo này sẽ chứa cả các git branch bao gồm cả main branch, mình không muốn nói quá nhiều về branch, mọi người hãy tự nghiên cứu hoặc hỏi AI nhé!) 
+
+```bash
+git checkout -b <branch_name>
+```
+
+Chạy lệnh này để tạo ra một 'local branch', dùng nó để push lên cho master branch kiểm tra sau đó mới merge vào main branch.
+
+NHẤT ĐỊNH PHẢI CHẠY CHECKOUT, NHẤT ĐỊNH PHẢI CHẠY CHECKOUT, NHẤT ĐỊNH PHẢI CHẠY CHECKOUT 
+
+Sau khi đã code xong phần của mình, để push code lên ta thực hiện các chuỗi lệnh 
+```bash
+git add . 
+git commit -m "<Content>"
+git push
+```
+
+Khi có người đã update code, để update repo local ta sử dụng lệnh 
+```bash
+git pull origin main
+```
+
+Lệnh này sẽ giúp mọi người update được toàn bộ thay đổi sau khi người khác push code lên.
+Sau khi ban đầu chạy `git clone` thì mỗi lần mọi người bật máy lên, hãy cứ chạy lệnh trên cho mình để update code người khác đã làm.
+
+
