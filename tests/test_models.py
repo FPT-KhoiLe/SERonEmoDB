@@ -3,6 +3,7 @@ import inspect
 import pytest
 import torch
 import pytorch_lightning as pl
+from SERonEmoDB.contracts.base_model import BaseLightningModel
 
 # Dynamically import the model module
 module = importlib.import_module("SERonEmoDB.models.model")
@@ -10,7 +11,7 @@ module = importlib.import_module("SERonEmoDB.models.model")
 # Collect all LightningModule subclasses defined in this module
 model_classes = [
     obj for name, obj in inspect.getmembers(module, inspect.isclass)
-    if issubclass(obj, pl.LightningModule) and obj.__module__ == module.__name__
+    if issubclass(obj, BaseLightningModel) and obj.__module__ == module.__name__
 ]
 
 @pytest.mark.parametrize('ModelClass', model_classes)
