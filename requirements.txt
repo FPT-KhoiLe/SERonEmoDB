@@ -1,7 +1,7 @@
 numpy
 pandas
-torch~=2.7.0
-torchaudio~=2.7.0
+torch
+torchaudio
 scikit-learn
 pytest~=8.3.5
 

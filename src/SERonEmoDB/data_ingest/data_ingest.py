@@ -1,4 +1,16 @@
-# src/seronemodb/data_ingest.py
+"""
+EMO-DB Dataset Processing Module
+
+This module provides classes and utilities for handling the Berlin Database of Emotional Speech (EMO-DB),
+a dataset containing emotional speech recordings. The module implements PyTorch Dataset and
+Lightning DataModule interfaces for seamless integration with deep learning workflows.
+
+Key Components:
+- EMOTION_MAP: Mapping between EMO-DB emotion codes and numerical labels
+- EmoDBDataset: PyTorch Dataset implementation for EMO-DB
+- EmoDataModule: Lightning DataModule for handling data splitting and loading
+"""
+
 import os
 import torch
 import torchaudio
@@ -54,8 +66,21 @@ EMOTION_MAP = {
 
 class EmoDBDataset(BaseLightningDataset):
     """
-    Dataset for EMO-DB utterances. Labels are parsed from filename (position 6).
+    Dataset class for loading and processing EMO-DB utterances.
+    
+    This class handles individual audio file loading and emotion label parsing from filenames.
+    Each audio file is expected to have the emotion label as its 6th character in the filename.
+
+    Args:
+        data_dir (str): Directory containing the WAV files
+        files_list (list, optional): Specific list of files to use. If None, uses all WAV files in data_dir
+        transform (callable, optional): Transform to apply to the audio waveform
+    
+    Returns:
+        tuple: (features, label) where features is a tensor of shape [1, T] or transformed shape,
+               and label is an integer emotion class index
     """
+
     def __init__(self, data_dir, files_list=None, transform=None):
         super().__init__()
         self.data_dir = data_dir
@@ -66,7 +91,18 @@ class EmoDBDataset(BaseLightningDataset):
     def __len__(self):
         return len(self.files)
 
-    def __getitem__(self, idx) -> tuple[torch.Tensor, int]:  # Features: [1, T], label
+    def __getitem__(self, idx) -> tuple[torch.Tensor, int]:
+        """
+        Load and process a single audio file and its emotion label.
+
+        Args:
+            idx (int): Index of the sample to load
+
+        Returns:
+            tuple: (features, label)
+                - features: Tensor of shape [1, T] containing the audio waveform or transformed features
+                - label: Integer emotion class index
+        """
         fname = self.files[idx]
         path = os.path.join(self.data_dir, fname)
         waveform, sr = torchaudio.load(path)  # [1, T]
@@ -82,8 +118,18 @@ class EmoDBDataset(BaseLightningDataset):
 
 class EmoDataModule(BaseLightningDataModule):
     """
-    LightningDataModule for EMO-DB: splits data into train/test and provides loaders.
+    Lightning DataModule for EMO-DB dataset handling.
+
+    This class manages dataset splitting, batch creation, and dataloader configuration.
+    It provides train and validation dataloaders with automatic padding for variable-length sequences.
+
+    Args:
+        data_dir (str): Directory containing the WAV files
+        batch_size (int, optional): Batch size for dataloaders. Defaults to 32
+        transform (callable, optional): Transform to apply to the audio waveforms
+        split_ratio (float, optional): Train/test split ratio. Defaults to 0.8
     """
+
     def __init__(self, data_dir, batch_size=32, transform=None, split_ratio=0.8):
         super().__init__()
         self.data_dir = data_dir
@@ -92,33 +138,52 @@ class EmoDataModule(BaseLightningDataModule):
         self.split_ratio = split_ratio
 
     def setup(self, stage=None):
-        # download_data()
+        """
+        Prepare train and test datasets.
+        
+        Splits the available data into train and test sets based on split_ratio.
+        Files are sorted for reproducibility before splitting.
+        """
         # List and sort files for reproducibility
         all_files = sorted([f for f in os.listdir(self.data_dir) if f.endswith('.wav')])
         n = len(all_files)
         cutoff = int(n * self.split_ratio)
         train_files = all_files[:cutoff]
-        test_files  = all_files[cutoff:]
+        test_files = all_files[cutoff:]
 
         # Create datasets with explicit file lists
         self.train_ds = EmoDBDataset(self.data_dir, files_list=train_files, transform=self.transform)
-        self.test_ds  = EmoDBDataset(self.data_dir, files_list=test_files,  transform=self.transform)
+        self.test_ds = EmoDBDataset(self.data_dir, files_list=test_files, transform=self.transform)
 
-    def pad_collate(self,batch):
-        # batch: list of (features, label), features: Tensor [C, T_i]
+    def pad_collate(self, batch):
+        """
+        Custom collate function for padding variable-length sequences in a batch.
+
+        Args:
+            batch: List of (features, label) tuples
+
+        Returns:
+            tuple: (padded_features, labels)
+                - padded_features: Tensor with all sequences padded to the longest sequence length
+                - labels: Tensor of corresponding emotion labels
+        """
         feats, labels = zip(*batch)
-        # Tìm max time-length
+        # Find max time-length in batch
         max_len = max(f.shape[-1] for f in feats)
-        # Pad mỗi feature về chiều dài max_len
+        # Pad each feature to max_len
         padded = [F.pad(f, (0, max_len - f.shape[-1])) for f in feats]
-        # Stack và return
+        # Stack and return
         x = torch.stack(padded)
         y = torch.tensor(labels, dtype=torch.long)
         return x, y
 
     def train_dataloader(self):
-        return DataLoader(self.train_ds, batch_size=self.batch_size, shuffle=True, collate_fn=self.pad_collate, num_workers=19)
+        """Returns the training data loader."""
+        return DataLoader(self.train_ds, batch_size=self.batch_size, shuffle=True, 
+                         collate_fn=self.pad_collate, num_workers=19)
 
     def val_dataloader(self):
-        return DataLoader(self.test_ds,  batch_size=self.batch_size, shuffle=False, collate_fn=self.pad_collate, num_workers=19)
+        """Returns the validation data loader."""
+        return DataLoader(self.test_ds, batch_size=self.batch_size, shuffle=False, 
+                         collate_fn=self.pad_collate, num_workers=19)
 
