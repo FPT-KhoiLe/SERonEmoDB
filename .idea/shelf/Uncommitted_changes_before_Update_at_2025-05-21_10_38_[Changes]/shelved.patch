@@ -1,0 +1,17 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"Black\">\n    <option name=\"sdkName\" value=\"weekly_projects\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision a8f0f37b9fded3e007e5b752a6eea27e042ae814)
++++ b/.idea/misc.xml	(date 1747797636037)
+@@ -3,4 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="weekly_projects" />
+   </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="test" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
