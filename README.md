@@ -30,6 +30,8 @@ Before you begin, make sure you have installed:
 
 ---
 
+### Good news for lazy people ~_~ hehe. I created a `one_click_setup.sh` file for a fully setup for this project. If you got lucky enough, you can setup without any bugs ~_~.  
+
 ### Note: All setups run on CLI commands in side the repo project folder
 For example:
     ```bash
@@ -134,5 +136,8 @@ project-root/
 ```
 
 ---
+More instruction guides:
+
+[How to use `pytest`](docs%20/Pytest_guide.md)
 
 *Happy coding!*
