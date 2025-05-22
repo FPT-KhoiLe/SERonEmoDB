@@ -20,7 +20,7 @@ Building a deep learning system for identifying and classifying emotions from sp
 
 Before you begin, make sure you have installed:
 
-* **[Git](https://git-scm.com/)** (with SSH support)
+* **[Git](https://git-scm.com/)** (with SSH support). Check out: [Git_Guide](docs%20/Git_Guide.md) for more information.
 * **Conda** (Miniconda or Anaconda distribution)
 
   * Downloads: 
