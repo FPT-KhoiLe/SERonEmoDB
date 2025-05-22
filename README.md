@@ -15,3 +15,4 @@ Run `pytest` để chạy test toàn bộ dự án.
 
 KaggleHub không cho phép tải data cụ thể vào một specified path, cho nên mọi người tự tải data vào theo path sau : `/SERonEmoDB/datas/EmoDB/wav/` việc specified download để bên engineer làm.
 
+
