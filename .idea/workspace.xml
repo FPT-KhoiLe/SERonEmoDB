@@ -82,7 +82,7 @@
     &quot;Python.feature_extraction.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;khoile&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/khoile/Desktop&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -224,6 +224,7 @@
       <workItem from="1747797643193" duration="784000" />
       <workItem from="1747798438974" duration="190000" />
       <workItem from="1747884471608" duration="775000" />
+      <workItem from="1747958802474" duration="651000" />
     </task>
     <task id="LOCAL-00001" summary="The first scaffold, MLOps flow for everyone to get familiar with. Note: đây là phiên bản đầu tiên">
       <option name="closed" value="true" />
