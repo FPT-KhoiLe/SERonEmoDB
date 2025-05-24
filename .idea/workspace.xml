@@ -195,6 +195,7 @@
         <item itemvalue="Python tests.pytest for test_ingest.test_datamodule_split_and_loaders" />
         <item itemvalue="Python.feature_extraction" />
         <item itemvalue="Python.data_ingest" />
+        <item itemvalue="Python tests.pytest for test_models.test_model_forward_and_training" />
       </list>
     </recent_temporary>
   </component>
